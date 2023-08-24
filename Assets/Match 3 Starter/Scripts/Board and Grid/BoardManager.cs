@@ -74,33 +74,6 @@ public class BoardManager : MonoBehaviour {
         }
     }
 
-    private IEnumerator ShiftTilesDown(int x, int yStart, float shiftDelay = .03f)
-    {
-        IsShifting = true;
-        List<SpriteRenderer> renders = new List<SpriteRenderer>();
-        int nullCount = 0;
-
-        for (int y = yStart; y < ySize; y++)
-        {  // 1
-            SpriteRenderer render = tiles[x, y].GetComponent<SpriteRenderer>();
-            if (render.sprite == null)
-            { // 2
-                nullCount++;
-            }
-            renders.Add(render);
-        }
-
-        for (int i = 0; i < nullCount; i++)
-        { // 3
-            yield return new WaitForSeconds(shiftDelay);// 4
-            for (int k = 0; k < renders.Count - 1; k++)
-            { // 5
-                renders[k].sprite = renders[k + 1].sprite;
-                renders[k + 1].sprite = null; // 6
-            }
-        }
-        IsShifting = false;
-    }
 
     private IEnumerator ShiftTilesDown(int x, int yStart, float shiftDelay = .03f)
     {

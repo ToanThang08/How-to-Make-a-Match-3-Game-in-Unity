@@ -45,7 +45,7 @@ public class GUIManager : MonoBehaviour {
             if (moveCounter <= 0)
             {
                 moveCounter = 0;
-                GameOver();
+                StartCoroutine(WaitForShifting());
             }
             moveCounterTxt.text = moveCounter.ToString();
         }
@@ -72,5 +72,12 @@ public class GUIManager : MonoBehaviour {
 
 		yourScoreTxt.text = score.ToString();
 	}
+
+    private IEnumerator WaitForShifting()
+    {
+        yield return new WaitUntil(() => !BoardManager.instance.IsShifting);
+        yield return new WaitForSeconds(.25f);
+        GameOver();
+    }
 
 }
